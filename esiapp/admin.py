@@ -50,7 +50,7 @@ class UserChangeForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('Nom', 'prenom', 'email', 'password', 'telephone', 'adresse', 'is_admin', 'is_teacher',
-                  'is_doctorant', 'is_active', 'is_admin')
+                  'is_doctorant', 'is_active')
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
@@ -68,13 +68,13 @@ class UserAdmin(BaseUserAdmin):
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
     list_display = (
-        'Nom', 'prenom', 'email', 'telephone', 'adresse', 'is_admin', 'is_teacher', 'is_doctorant', 'is_admin')
+        'Nom', 'prenom', 'email', 'telephone', 'adresse', 'is_teacher', 'is_doctorant', 'is_admin')
     list_filter = ('is_admin',)
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         ('Personal info',
          {'fields': ('Nom', 'prenom', 'telephone', 'adresse',)}),
-        ('Permissions', {'fields': ('is_admin',)}),
+        ('Permissions', {'fields': ('is_admin', 'is_teacher', 'is_doctorant',)}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
@@ -82,7 +82,8 @@ class UserAdmin(BaseUserAdmin):
         (None, {
             'classes': ('wide',),
             'fields': (
-                'Nom', 'prenom', 'email', 'telephone', 'adresse', 'is_admin', 'is_teacher', 'is_doctorant', 'password1',
+                'Nom', 'prenom', 'email', 'telephone', 'adresse', 'is_admin', 'is_teacher', 'is_doctorant',
+                'password1',
                 'password2')}
          ),
     )
