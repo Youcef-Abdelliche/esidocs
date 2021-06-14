@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils.translation import ugettext_lazy as _
 
 
 priorite = (
@@ -13,14 +14,18 @@ class User(AbstractUser):
     class Meta:
         db_table = 'auth_user'
 
+    username = None
     Nom = models.CharField(max_length=50, default="user")
     prenom = models.CharField(max_length=50, default="prenom")
-    email = models.EmailField(max_length=255)
+    email = models.EmailField(_('email address'), unique=True)
     telephone = models.CharField(max_length=255, default="tel")
     adresse = models.CharField(max_length=255, default="adresse")
     is_admin = models.BooleanField('admin status', default=False)
     is_teacher = models.BooleanField('enseignant status', default=False)
     is_doctorant = models.BooleanField('doctorant status', default=False)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
     def __str__(self):
         return self.email
