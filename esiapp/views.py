@@ -11,14 +11,14 @@ def loginPage(request):
 
 
 def homeAdmin(request):
-    publications = Publication.objects.filter()
+    publications = Publication.objects.order_by('-date_ajout')[:3]
     if request.user.is_authenticated:
         user = request.user
     return render(request, 'admin/home_page_admin.html', {'list': publications, 'user': user})
 
 
 def homeUser(request):
-    publications = Publication.objects.filter()
+    publications = Publication.objects.order_by('-date_ajout')[:3]
     if request.user.is_authenticated:
         user = request.user
     return render(request, 'user/home_page_user.html', {'list': publications, 'user': user})
@@ -44,3 +44,8 @@ def admin_login_custom(request):
         return redirect('esiapp:login')
 
 
+def new_publication(request):
+    publications = Publication.objects.order_by('-date_ajout')[:3]
+    if request.user.is_authenticated:
+        user = request.user
+    return render(request, 'admin/new_publication.html', {'list': publications, 'user': user})
