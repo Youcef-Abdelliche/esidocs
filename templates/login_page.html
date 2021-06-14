@@ -37,7 +37,7 @@
      style="background-image: url('https://wallpaperaccess.com/full/1876581.jpg'); height: 100vh">
     <div class="container-md col-4 bg-white d-flex justify-content-center align-items-center">
         <div class="row p-5">
-            <form class="px-4" method="post">
+            <form class="px-4" action="{% url 'esiapp:admin_login_custom' %}" method="post">
                 {% csrf_token %}
                 <div class="d-flex justify-content-center"><img src="{% static 'images/esi_logo3.png' %}"
                                                                 width="300" alt=""></div>
@@ -48,12 +48,13 @@
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Adresse email :</label>
                     <input type="email" placeholder="Entrer l'adresse email"
+                           name="email"
                            class="form-control rounded-0 "
                            id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Mot de passe :</label>
-                    <input type="password" placeholder="Entrer le mot de passe" class="form-control rounded-0"
+                    <input type="password" name="password" placeholder="Entrer le mot de passe" class="form-control rounded-0"
                            id="exampleInputPassword1">
                 </div>
                 <div class="mb-3 form-check">

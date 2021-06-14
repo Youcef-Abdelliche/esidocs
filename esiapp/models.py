@@ -1,7 +1,7 @@
+from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext_lazy as _
-
 
 priorite = (
     ('priorite 1', 'priorite 1'),
@@ -10,10 +10,56 @@ priorite = (
 )
 
 
+class MyUserManager(BaseUserManager):
+    def create_user(self, Nom, prenom, email, telephone, adresse, is_admin, is_teacher, is_doctorant, password):
+        """
+        Creates and saves a User with the given data
+        """
+        if not email:
+            raise ValueError('Users must have an email address')
+
+        user = self.model(
+            email=self.normalize_email(email),
+            adresse=adresse,
+            telephone=telephone,
+            Nom=Nom,
+            prenom=prenom,
+            is_admin=is_admin,
+            is_teacher=is_teacher,
+            is_doctorant=is_doctorant
+        )
+
+        user.set_password(password)
+        user.save(using=self._db)
+        print(user.email)
+        return user
+
+    def create_superuser(self, Nom, prenom, email, telephone, adresse, is_admin, is_teacher, is_doctorant, password):
+        """
+        Creates and saves a superuser with the given email, date of
+        birth and password.
+        """
+        user = self.create_user(email,
+                                password=password,
+                                email=self.normalize_email(email),
+                                adresse=adresse,
+                                telephone=telephone,
+                                Nom=Nom,
+                                prenom=prenom,
+                                is_admin=is_admin,
+                                is_teacher=is_teacher,
+                                is_doctorant=is_doctorant
+                                )
+        user.is_admin = True
+        user.save(using=self._db)
+        return user
+
+
 class User(AbstractUser):
     class Meta:
         db_table = 'auth_user'
 
+    objects = MyUserManager()
     username = None
     Nom = models.CharField(max_length=50, default="user")
     prenom = models.CharField(max_length=50, default="prenom")
@@ -47,7 +93,7 @@ class Publication(models.Model):
     date_limite = models.DateField()
     etat_publication = models.BooleanField(default=False)
     Categorie = models.ForeignKey(Category, on_delete=models.CASCADE, default=None)
-#    editeur = models.
+    #    editeur = models.
     priorite_contenu = models.CharField(choices=priorite, max_length=11, blank=True)
 
     def __str__(self):
