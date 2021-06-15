@@ -116,13 +116,13 @@
             <h5>Offres de bources</h5>
         </div>
         <div class="card-body">
-            {% for pub in list %}
+            {% for pub in pub_offres_brouces %}
                 <div class="row">
                     <div class="col">
                         <h4>{{ pub }}</h4>
                         <tbody>
                         <tr>
-                            <td><strong>Publié par :</strong> Campus france</td>
+                            <td><strong>Publié par :</strong>{{ pub.send_By }}</td>
                             <td><strong>Date limite :</strong> {{ pub.date_ajout }}</td>
                             <td><strong>Ajouté par :</strong> {{ user.email }}</td>
                         </tr>
@@ -158,14 +158,14 @@
                         <h5>Entreprises</h5>
                     </div>
                     <div class="card-body">
-                        {% for item in list %}
+                        {% for pub in pub_entreprise %}
                             <div class="row">
                                 <div class="col">
-                                    <h4>{{ item }}</h4>
+                                    <h4>{{ pub }}</h4>
                                     <tbody>
                                     <tr>
-                                        <td><strong>Publié par :</strong> Campus france</td>
-                                        <td><strong>Date limite :</strong> 2021-03-15</td>
+                                        <td><strong>Publié par :</strong> {{ pub.send_By }}</td>
+                                        <td><strong>Date limite :</strong> {{ pub.date_limite }}</td>
                                         <td><strong>Ajouté par :</strong> Vous</td>
                                     </tr>
                                     </tbody>
@@ -202,14 +202,14 @@
                         <h5>Projets de recherches</h5>
                     </div>
                     <div class="card-body">
-                        {% for item in list %}
+                        {% for pub in pub_projet_rech %}
                             <div class="row">
                                 <div class="col">
-                                    <h4>{{ item }}</h4>
+                                    <h4>{{ pub }}</h4>
                                     <tbody>
                                     <tr>
-                                        <td><strong>Publié par :</strong> Campus france</td>
-                                        <td><strong>Date limite :</strong> 2021-03-15</td>
+                                        <td><strong>Publié par :</strong> {{ pub.send_By }}</td>
+                                        <td><strong>Date limite :</strong> {{ pub.date_limite }}</td>
                                         <td><strong>Ajouté par :</strong> Vous</td>
                                     </tr>
                                     </tbody>
@@ -250,14 +250,14 @@
                         <h5>PRFU</h5>
                     </div>
                     <div class="card-body">
-                        {% for item in list %}
+                        {% for pub in pub_prfu %}
                             <div class="row">
                                 <div class="col">
-                                    <h4>{{ item }}</h4>
+                                    <h4>{{ pub }}</h4>
                                     <tbody>
                                     <tr>
-                                        <td><strong>Publié par :</strong> Campus france</td>
-                                        <td><strong>Date limite :</strong> 2021-03-15</td>
+                                        <td><strong>Publié par :</strong> {{ pub.send_By }}</td>
+                                        <td><strong>Date limite :</strong> {{ pub.date_limite }}</td>
                                         <td><strong>Ajouté par :</strong> Vous</td>
                                     </tr>
                                     </tbody>
@@ -294,14 +294,14 @@
                         <h5>Autres</h5>
                     </div>
                     <div class="card-body">
-                        {% for item in list %}
+                        {% for pub in pub_autres %}
                             <div class="row">
                                 <div class="col">
-                                    <h4>{{ item }}</h4>
+                                    <h4>{{ pub }}</h4>
                                     <tbody>
                                     <tr>
-                                        <td><strong>Publié par :</strong> Campus france</td>
-                                        <td><strong>Date limite :</strong> 2021-03-15</td>
+                                        <td><strong>Publié par :</strong>{{ pub.send_By }}</td>
+                                        <td><strong>Date limite :</strong> {{ pub.date_limite }}</td>
                                         <td><strong>Ajouté par :</strong> Vous</td>
                                     </tr>
                                     </tbody>

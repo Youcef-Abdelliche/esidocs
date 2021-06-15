@@ -13,17 +13,53 @@ def loginPage(request):
 
 
 def homeAdmin(request):
-    publications = Publication.objects.order_by('-date_ajout')[:3]
+    publications_offres_bources = Publication.objects.filter(Categorie__nom_categorie="Offres de bources",
+                                                             etat_publication=True).order_by('-date_ajout')[:3]
+    publications_entreprise = Publication.objects.filter(Categorie__nom_categorie="Entreprise",
+                                                         etat_publication=True).order_by('-date_ajout')[:3]
+    publications_prfu = Publication.objects.filter(Categorie__nom_categorie="Projets de recherches",
+                                                   etat_publication=True).order_by('-date_ajout')[:3]
+    publications_projet_rech = Publication.objects.filter(Categorie__nom_categorie="PRFU",
+                                                          etat_publication=True).order_by('-date_ajout')[:3]
+    publications_autres = Publication.objects.filter(Categorie__nom_categorie="Autres",
+                                                     etat_publication=True).order_by('-date_ajout')[:3]
+
     if request.user.is_authenticated:
         user = request.user
-    return render(request, 'admin/home_page_admin.html', {'list': publications, 'user': user})
+    context = {
+        'pub_offres_brouces': publications_offres_bources,
+        'pub_entreprise': publications_entreprise,
+        'pub_prfu': publications_prfu,
+        'pub_projet_rech': publications_projet_rech,
+        'pub_autres': publications_autres,
+        'user': user
+    }
+    return render(request, 'admin/home_page_admin.html', context)
 
 
 def homeUser(request):
-    publications = Publication.objects.order_by('-date_ajout')[:3]
+    publications_offres_bources = Publication.objects.filter(Categorie__nom_categorie="Offres de bources",
+                                                             etat_publication=True).order_by('-date_ajout')[:3]
+    publications_entreprise = Publication.objects.filter(Categorie__nom_categorie="Entreprise",
+                                                         etat_publication=True).order_by('-date_ajout')[:3]
+    publications_prfu = Publication.objects.filter(Categorie__nom_categorie="Projets de recherches",
+                                                   etat_publication=True).order_by('-date_ajout')[:3]
+    publications_projet_rech = Publication.objects.filter(Categorie__nom_categorie="PRFU",
+                                                          etat_publication=True).order_by('-date_ajout')[:3]
+    publications_autres = Publication.objects.filter(Categorie__nom_categorie="Autres",
+                                                     etat_publication=True).order_by('-date_ajout')[:3]
+
     if request.user.is_authenticated:
         user = request.user
-    return render(request, 'user/home_page_user.html', {'list': publications, 'user': user})
+    context = {
+        'pub_offres_brouces': publications_offres_bources,
+        'pub_entreprise': publications_entreprise,
+        'pub_prfu': publications_prfu,
+        'pub_projet_rech': publications_projet_rech,
+        'pub_autres': publications_autres,
+        'user': user
+    }
+    return render(request, 'user/home_page_user.html', context)
 
 
 def admin_login_custom(request):
@@ -83,3 +119,7 @@ def send_email(pub, user, recipient_list):
         recipient_list=recipient_list,
         fail_silently=False,
     )
+
+
+def find_category(cat):
+    cat = Category.objects.filter(nom_categorie=cat)[0]
