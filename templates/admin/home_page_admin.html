@@ -53,7 +53,7 @@
         <span class="input-group-append">
                     <a class="btn indigo-text"
                        href="/nouvelle_publication/"
-                            type="button">
+                       type="button">
                         <img src="{% static 'icons/add_circle.svg' %}" width="30" height="30">
                     </a>
         </span>
@@ -136,8 +136,35 @@
                             <button type="button" class="btn text-white px-3" style="background-color: #3BB628">
                                 Modifier
                             </button>
-                            <button type="button" class="btn text-white" style="background-color: #F91717">Supprimer
+                            <button type="button" class="btn text-white" style="background-color: #F91717"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Supprimer
                             </button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-body d-flex justify-content-center">
+                                            Vous êtes sur que vous voulez supprimé cette publication ?
+                                        </div>
+                                        <div class="modal-footer d-flex justify-content-evenly">
+                                            <button type="button" class="btn px-4 rounded-0"
+                                                    data-bs-dismiss="modal"
+                                                    style="color: #0360b1; border-color: #0360b1">
+                                                Annuler
+                                            </button>
+                                            <form method="post" action="{% url 'esiapp:delete_publication' pub.id %}">
+                                                {% csrf_token %}
+                                                <button type="submit"
+                                                        class="btn text-white px-4 rounded-0"
+                                                        style="background-color: red">
+                                                    Supprimer
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <hr class="dropdown-divider">

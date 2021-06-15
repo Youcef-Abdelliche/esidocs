@@ -96,7 +96,10 @@ def ajouter_publication(request):
     categorie = Category.objects.filter(nom_categorie=request.POST['categorie_op'])[0]
     contenu = request.POST['contenu']
     date_limite = datetime.datetime.strptime(request.POST['date_limite'], "%Y-%m-%d").date()
-    file = request.POST['file']
+    # file = request.POST['file']
+    emails = request.POST.getlist('list')[0]
+    recipient_list = emails.split(',')
+    print(recipient_list)
 
     pub = Publication(titre=titre, message=message, send_By=sendBy, Categorie=categorie, etat_publication=True,
                       priorite_contenu=contenu, date_limite=date_limite)
@@ -105,9 +108,9 @@ def ajouter_publication(request):
     publications = Publication.objects.order_by('-date_ajout')[:3]
     if request.user.is_authenticated:
         user = request.user
-    recipient_list = ['joseph.london116@gmail.com', 'azizrcb2011@gmail.com']
+    # recipient_list = ['joseph.london116@gmail.com', 'azizrcb2011@gmail.com']
     send_email(pub, user, recipient_list)
-    return render(request, 'admin/home_page_admin.html', {'list': publications, 'user': user})
+    return redirect('esiapp:admin_home')
 
 
 def send_email(pub, user, recipient_list):
@@ -121,5 +124,10 @@ def send_email(pub, user, recipient_list):
     )
 
 
-def find_category(cat):
-    cat = Category.objects.filter(nom_categorie=cat)[0]
+def edit_publication(request, item_id):
+    pass
+
+
+def delete_publication(request, item_id):
+    Publication.objects.filter(id=item_id).delete()
+    return redirect('esiapp:admin_home')

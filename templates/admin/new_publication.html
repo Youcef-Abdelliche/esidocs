@@ -134,6 +134,7 @@
         </div>
         <div class="card-body">
             <form method="post" action="{% url 'esiapp:ajouter_publication' %}">
+                {#            <form>#}
                 {% csrf_token %}
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Titre :</label>
@@ -209,10 +210,66 @@
 
                 <hr class="col-4 mx-auto">
                 <div class="d-grid gap-2 col-2 mx-auto">
-                    <button class="btn text-white rounded-0 fs-6 d-flex justify-content-center"
-                            style="background-color: #0360b1" type="submit">
+                    {#                    <button class="btn text-white rounded-0 fs-6 d-flex justify-content-center"#}
+                    {#                            style="background-color: #0360b1">#}
+                    {#                        Publier le message#}
+                    {#                    </button>#}
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn text-white rounded-0" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal"
+                            style="background-color: #0360b1">
                         Publier le message
                     </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">List des emails :</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="text" class="form-control rounded-0 bg-white"
+                                                   placeholder="Entrer l'email"
+                                                   id="email"
+                                                   name="email"
+                                                   style="border-color: #0360b1"
+                                                   aria-describedby="emailHelp">
+                                        </div>
+                                        <div onclick="addelement();" class="col-3 btn btn-primary">
+                                            Add
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                            <input type="hidden" class="form-control rounded-0 bg-white"
+                                                   placeholder="Entrer l'email"
+                                                   id="list"
+                                                   name="list"
+                                                   style="border-color: #0360b1"
+                                                   aria-describedby="emailHelp">
+                                        </div>
+                                    <ul class="list-group list-group-flush" id="thelist">
+                                        <!-- your emails elements are here -->
+                                    </ul>
+                                </div>
+                                <div class="modal-footer d-flex justify-content-evenly">
+                                    <button type="button" class="btn px-4 rounded-0"
+                                            data-bs-dismiss="modal"
+                                            style="color: #0360b1; border-color: #0360b1">
+                                        Annuler
+                                    </button>
+                                    <button onclick="setEmails();"  type="submit" class="btn text-white px-4 rounded-0"
+                                            style="background-color: #3BB628">
+                                        Envoyer
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
@@ -231,5 +288,27 @@
         </small>
     </footer>
 </div>
+
+<script>
+    var counter = 0;
+    var emails = []
+
+    function addelement() {
+        var completelist = document.getElementById("thelist");
+        var email = document.getElementById("email").value;
+//        completelist.innerText += "<li class=\"list-group-item\">And a fifth one</li>"
+        //<li class="list-group-item w-50 text-white m-2" style="background-color: #0360b1">An item</li>
+        completelist.innerHTML += "<li class='list-group-item w-50 text-white m-2' style='background-color: #0360b1'>" +
+            email + "</li>";
+        emails.push(email)
+        document.getElementById("email").value = ""
+        counter++;
+
+    }
+
+    function setEmails() {
+        document.getElementById("list").value = emails
+    }
+</script>
 </body>
 </html>
