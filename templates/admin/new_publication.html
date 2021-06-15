@@ -154,17 +154,17 @@
                         <select class="form-select rounded-0" aria-label="Default select example">
                             <option selected>Campus france</option>
                             <option value="2">option 2</option>
-                            <option value="3">option 3</option>
+                            <option>option 3</option>
                         </select>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-1 col-form-label">Envoyer par :</label>
+                    <label for="inputEmail3" class="col-sm-1 col-form-label">Catégorie :</label>
                     <div class="col-2">
-                        <select class="form-select rounded-0" aria-label="Default select example">
-                            <option selected>Campus france</option>
-                            <option value="2">option 2</option>
-                            <option value="3">option 3</option>
+                        <select class="form-select rounded-0" name="categorie_op" aria-label="Default select example">
+                            {% for cat in list %}
+                                <option>{{ cat }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                     <div class="col-1">
@@ -179,9 +179,9 @@
                     <label for="inputEmail3" class="col-sm-1 col-form-label">Contenu :</label>
                     <div class="col-2">
                         <select class="form-select rounded-0" aria-label="Default select example">
-                            <option selected>Campus france</option>
-                            <option value="2">option 2</option>
-                            <option value="3">option 3</option>
+                            <option selected>priorite 1</option>
+                            <option value="2">priorite 2</option>
+                            <option value="3">priorite 3</option>
                         </select>
                     </div>
                 </div>
@@ -198,7 +198,7 @@
                 <label for="inputEmail3" class="col-form-label"><h5>Pièces jointes :</h5></label>
 
                 <div class="form-group">
-                    <label for="fichier">insérer le nouveau fichier</label>
+                    <label for="fichier">Pas de pièces jointes</label>
                     <input type="file" class="form-control-file align-center bg-black" id="cv" name="cv">
                 </div>
 

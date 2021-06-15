@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import redirect
 from django.contrib import messages
-from .models import Publication, User
+from .models import Publication, User, Category
 
 
 def loginPage(request):
@@ -45,7 +45,7 @@ def admin_login_custom(request):
 
 
 def new_publication(request):
-    publications = Publication.objects.order_by('-date_ajout')[:3]
+    categories = Category.objects.all()
     if request.user.is_authenticated:
         user = request.user
-    return render(request, 'admin/new_publication.html', {'list': publications, 'user': user})
+    return render(request, 'admin/new_publication.html', {'list': categories, 'user': user})
