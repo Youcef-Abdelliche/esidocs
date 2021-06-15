@@ -3,6 +3,8 @@ from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import redirect
 from django.contrib import messages
 from .models import Publication, User, Category
+import datetime
+from django.core.mail import send_mail
 
 
 def loginPage(request):
@@ -49,3 +51,35 @@ def new_publication(request):
     if request.user.is_authenticated:
         user = request.user
     return render(request, 'admin/new_publication.html', {'list': categories, 'user': user})
+
+
+def ajouter_publication(request):
+    titre = request.POST['titre']
+    message = request.POST['message']
+    sendBy = request.POST['sendBy']
+    categorie = Category.objects.filter(nom_categorie=request.POST['categorie_op'])[0]
+    contenu = request.POST['contenu']
+    date_limite = datetime.datetime.strptime(request.POST['date_limite'], "%Y-%m-%d").date()
+    file = request.POST['file']
+
+    pub = Publication(titre=titre, message=message, send_By=sendBy, Categorie=categorie, etat_publication=True,
+                      priorite_contenu=contenu, date_limite=date_limite)
+    pub.save()
+
+    publications = Publication.objects.order_by('-date_ajout')[:3]
+    if request.user.is_authenticated:
+        user = request.user
+    recipient_list = ['joseph.london116@gmail.com', 'azizrcb2011@gmail.com']
+    send_email(pub, user, recipient_list)
+    return render(request, 'admin/home_page_admin.html', {'list': publications, 'user': user})
+
+
+def send_email(pub, user, recipient_list):
+    send_mail(
+        pub.titre,
+        pub.message,
+        from_email='esidocs827@gmail.com',
+        auth_password='ogthzi88999%77',
+        recipient_list=recipient_list,
+        fail_silently=False,
+    )

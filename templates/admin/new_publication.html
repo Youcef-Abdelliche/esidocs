@@ -130,10 +130,11 @@
 <div class="container-fluid py-3" style="background-color: #EEEEEE">
     <div class="card">
         <div class="card-header text-white" style="background-color: #0360b1;">
-            <h5>Offres de bources</h5>
+            <h5>Nouvelle publication</h5>
         </div>
         <div class="card-body">
-            <form>
+            <form method="post" action="{% url 'esiapp:ajouter_publication' %}">
+                {% csrf_token %}
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Titre :</label>
                     <input type="text" class="form-control w-25 rounded-0 bg-white" placeholder="Entrer le titre"
@@ -151,7 +152,7 @@
                 <div class="row mb-3">
                     <label for="inputEmail3" class="col-sm-1 col-form-label">Envoyer par :</label>
                     <div class="col-2">
-                        <select class="form-select rounded-0" aria-label="Default select example">
+                        <select class="form-select rounded-0" name="sendBy" aria-label="Default select example">
                             <option selected>Campus france</option>
                             <option value="2">option 2</option>
                             <option>option 3</option>
@@ -178,7 +179,7 @@
                 <div class="row mb-3">
                     <label for="inputEmail3" class="col-sm-1 col-form-label">Contenu :</label>
                     <div class="col-2">
-                        <select class="form-select rounded-0" aria-label="Default select example">
+                        <select class="form-select rounded-0" name="contenu" aria-label="Default select example">
                             <option selected>priorite 1</option>
                             <option value="2">priorite 2</option>
                             <option value="3">priorite 3</option>
@@ -187,19 +188,23 @@
                 </div>
                 <div class="row mb-3">
                     <label for="inputEmail3" class="col-sm-1 col-form-label">Date limite :</label>
-                    <div class="input-group date col-2" id="datetimepicker1" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input rounded-0"
-                               data-target="#datetimepicker1"/>
-                        <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                            <div class="input-group-text rounded-0"><i class="fa fa-calendar"></i></div>
-                        </div>
+                    {#                    <div class="input-group date col-2" id="datetimepicker1" data-target-input="nearest">#}
+                    {#                        <input type="text" name="date_limite" class="form-control datetimepicker-input rounded-0"#}
+                    {#                               data-target="#datetimepicker1"/>#}
+                    {#                        <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">#}
+                    {#                            <div class="input-group-text rounded-0"><i class="fa fa-calendar"></i></div>#}
+                    {#                        </div>#}
+                    {#                    </div>#}
+                    <div class="input-group date col-2">
+                        <input type="date" id="start" class="form-control rounded-0" name="date_limite">
                     </div>
                 </div>
+
                 <label for="inputEmail3" class="col-form-label"><h5>Pièces jointes :</h5></label>
 
                 <div class="form-group">
                     <label for="fichier">Pas de pièces jointes</label>
-                    <input type="file" class="form-control-file align-center bg-black" id="cv" name="cv">
+                    <input type="file" class="form-control-file align-center bg-black" name="file">
                 </div>
 
                 <hr class="col-4 mx-auto">
@@ -226,10 +231,10 @@
         </small>
     </footer>
 </div>
-<script>
-    $(function () {
-        $("#datetimepicker1").datetimepicker();
-    });
-</script>
+{#<script>#}
+{#    $(function () {#}
+{#        $("#datetimepicker1").datetimepicker();#}
+{#    });#}
+{#</script>#}
 </body>
 </html>
