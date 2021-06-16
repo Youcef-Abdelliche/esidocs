@@ -10,5 +10,7 @@ urlpatterns = [
     path('login/loggedin/', views.admin_login_custom, name="admin_login_custom"),
     path('nouvelle_publication/', views.new_publication, name='new_publication'),
     path('pubs/nouvelle_publication/', views.ajouter_publication, name="ajouter_publication"),
-    path('delete/<int:item_id>/', views.delete_publication, name="delete_publication")
+    path('delete/<int:item_id>/', views.delete_publication, name="delete_publication"),
+    path('publications/edit/<int:item_id>/', views.edit_publication_page, name="edit_publication_page"),
+    path('edit/<int:item_id>/', views.edit_publication, name="edit_publication")
 ]

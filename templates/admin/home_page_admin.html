@@ -133,9 +133,10 @@
                             <button type="button" class="btn px-4 text-white" style="background-color: #0360b1">
                                 Afficher
                             </button>
-                            <button type="button" class="btn text-white px-3" style="background-color: #3BB628">
+                            <a href="/publications/edit/{{ pub.id }}" type="button" class="btn text-white px-3"
+                               style="background-color: #3BB628">
                                 Modifier
-                            </button>
+                            </a>
                             <button type="button" class="btn text-white" style="background-color: #F91717"
                                     data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Supprimer
@@ -202,12 +203,40 @@
                                         <a href="#">
                                             <img src="{% static 'icons/display_icon.svg' %}" width="40" height="40">
                                         </a>
-                                        <a href="#">
+                                        <a href="/publications/edit/{{ pub.id }}">
                                             <img src="{% static 'icons/edit_icon.svg' %}" width="40" height="40">
                                         </a>
-                                        <a href="#">
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                                             <img src="{% static 'icons/delete_icon.svg' %}" width="40" height="40">
                                         </a>
+                                        <!-- Model togger -->
+                                        <div class="modal fade" id="exampleModal2" tabindex="-1"
+                                             aria-labelledby="exampleModalLabel"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                                <div class="modal-content">
+                                                    <div class="modal-body d-flex justify-content-center">
+                                                        Vous êtes sur que vous voulez supprimé cette publication ?
+                                                    </div>
+                                                    <div class="modal-footer d-flex justify-content-evenly">
+                                                        <button type="button" class="btn px-4 rounded-0"
+                                                                data-bs-dismiss="modal"
+                                                                style="color: #0360b1; border-color: #0360b1">
+                                                            Annuler
+                                                        </button>
+                                                        <form method="post"
+                                                              action="{% url 'esiapp:delete_publication' pub.id %}">
+                                                            {% csrf_token %}
+                                                            <button type="submit"
+                                                                    class="btn text-white px-4 rounded-0"
+                                                                    style="background-color: red">
+                                                                Supprimer
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <hr class="dropdown-divider">
@@ -246,12 +275,40 @@
                                         <a href="#">
                                             <img src="{% static 'icons/display_icon.svg' %}" width="40" height="40">
                                         </a>
-                                        <a href="#">
+                                        <a href="/publications/edit/{{ pub.id }}">
                                             <img src="{% static 'icons/edit_icon.svg' %}" width="40" height="40">
                                         </a>
-                                        <a href="#">
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal3">
                                             <img src="{% static 'icons/delete_icon.svg' %}" width="40" height="40">
                                         </a>
+                                        <!-- Model togger -->
+                                        <div class="modal fade" id="exampleModal3" tabindex="-1"
+                                             aria-labelledby="exampleModalLabel"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                                <div class="modal-content">
+                                                    <div class="modal-body d-flex justify-content-center">
+                                                        Vous êtes sur que vous voulez supprimé cette publication ?
+                                                    </div>
+                                                    <div class="modal-footer d-flex justify-content-evenly">
+                                                        <button type="button" class="btn px-4 rounded-0"
+                                                                data-bs-dismiss="modal"
+                                                                style="color: #0360b1; border-color: #0360b1">
+                                                            Annuler
+                                                        </button>
+                                                        <form method="post"
+                                                              action="{% url 'esiapp:delete_publication' pub.id %}">
+                                                            {% csrf_token %}
+                                                            <button type="submit"
+                                                                    class="btn text-white px-4 rounded-0"
+                                                                    style="background-color: red">
+                                                                Supprimer
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <hr class="dropdown-divider">
@@ -294,12 +351,40 @@
                                         <a href="#">
                                             <img src="{% static 'icons/display_icon.svg' %}" width="40" height="40">
                                         </a>
-                                        <a href="#">
+                                        <a href="/publications/edit/{{ pub.id }}">
                                             <img src="{% static 'icons/edit_icon.svg' %}" width="40" height="40">
                                         </a>
-                                        <a href="#">
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal4">
                                             <img src="{% static 'icons/delete_icon.svg' %}" width="40" height="40">
                                         </a>
+                                        <!-- Model togger -->
+                                        <div class="modal fade" id="exampleModal4" tabindex="-1"
+                                             aria-labelledby="exampleModalLabel"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                                <div class="modal-content">
+                                                    <div class="modal-body d-flex justify-content-center">
+                                                        Vous êtes sur que vous voulez supprimé cette publication ?
+                                                    </div>
+                                                    <div class="modal-footer d-flex justify-content-evenly">
+                                                        <button type="button" class="btn px-4 rounded-0"
+                                                                data-bs-dismiss="modal"
+                                                                style="color: #0360b1; border-color: #0360b1">
+                                                            Annuler
+                                                        </button>
+                                                        <form method="post"
+                                                              action="{% url 'esiapp:delete_publication' pub.id %}">
+                                                            {% csrf_token %}
+                                                            <button type="submit"
+                                                                    class="btn text-white px-4 rounded-0"
+                                                                    style="background-color: red">
+                                                                Supprimer
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <hr class="dropdown-divider">
@@ -338,12 +423,40 @@
                                         <a href="#">
                                             <img src="{% static 'icons/display_icon.svg' %}" width="40" height="40">
                                         </a>
-                                        <a href="#">
+                                        <a href="/publications/edit/{{ pub.id }}">
                                             <img src="{% static 'icons/edit_icon.svg' %}" width="40" height="40">
                                         </a>
-                                        <a href="#">
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal5">
                                             <img src="{% static 'icons/delete_icon.svg' %}" width="40" height="40">
                                         </a>
+                                        <!-- Model togger -->
+                                        <div class="modal fade" id="exampleModal5" tabindex="-1"
+                                             aria-labelledby="exampleModalLabel"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                                <div class="modal-content">
+                                                    <div class="modal-body d-flex justify-content-center">
+                                                        Vous êtes sur que vous voulez supprimé cette publication ?
+                                                    </div>
+                                                    <div class="modal-footer d-flex justify-content-evenly">
+                                                        <button type="button" class="btn px-4 rounded-0"
+                                                                data-bs-dismiss="modal"
+                                                                style="color: #0360b1; border-color: #0360b1">
+                                                            Annuler
+                                                        </button>
+                                                        <form method="post"
+                                                              action="{% url 'esiapp:delete_publication' pub.id %}">
+                                                            {% csrf_token %}
+                                                            <button type="submit"
+                                                                    class="btn text-white px-4 rounded-0"
+                                                                    style="background-color: red">
+                                                                Supprimer
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <hr class="dropdown-divider">

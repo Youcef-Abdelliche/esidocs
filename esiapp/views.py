@@ -124,8 +124,26 @@ def send_email(pub, user, recipient_list):
     )
 
 
+def edit_publication_page(request, item_id):
+    pub = Publication.objects.filter(id=item_id)[0]
+    categories = Category.objects.all()
+    print(pub.date_limite)
+    date = str(pub.date_limite)
+    return render(request, 'admin/modifier_publication.html', {'pub': pub, 'list': categories, 'date': date})
+
+
 def edit_publication(request, item_id):
-    pass
+    titre = request.POST['titre']
+    message = request.POST['message']
+    sendBy = request.POST['sendBy']
+    categorie = Category.objects.filter(nom_categorie=request.POST['categorie_op'])[0]
+    contenu = request.POST['contenu']
+    date_limite = datetime.datetime.strptime(request.POST['date_limite'], "%Y-%m-%d").date()
+
+    Publication.objects.filter(id=item_id).update(titre=titre, message=message, send_By=sendBy, Categorie=categorie,
+                                                  priorite_contenu=contenu, date_limite=date_limite)
+
+    return redirect('esiapp:admin_home')
 
 
 def delete_publication(request, item_id):
