@@ -116,7 +116,7 @@
             <h5>{{ pub.Categorie.nom_categorie }}</h5>
         </div>
         <div class="card-body">
-            <form method="post" action="{% url 'esiapp:edit_publication' pub.id %}">
+            <form method="post" action="{% url 'esiapp:ajouter_commentaire' pub.id %}">
                 {% csrf_token %}
                 <div class="mb-3">
                     <div class="row">
@@ -124,9 +124,9 @@
                             <h4>{{ pub }}</h4>
                             <tbody>
                             <tr>
-                                <td><strong>Publié par :</strong>{{ pub.send_By }}</td>
-                                <td><strong>Date limite :</strong> {{ pub.date_ajout }}</td>
-                                <td><strong>Ajouté par :</strong> {{ user.email }}</td>
+                                <td><strong>Publié par : </strong>{{ pub.send_By }}</td>
+                                <td><strong>Date limite : </strong> {{ pub.date_ajout }}</td>
+                                <td><strong>Ajouté par : </strong> {{ user.email }}</td>
                             </tr>
                             </tbody>
                         </div>
@@ -154,15 +154,15 @@
                                                         style="color: #0360b1; border-color: #0360b1">
                                                     Annuler
                                                 </button>
-                                                <form method="post"
-                                                      action="{% url 'esiapp:delete_publication' pub.id %}">
-                                                    {% csrf_token %}
-                                                    <button type="submit"
-                                                            class="btn text-white px-4 rounded-0"
-                                                            style="background-color: red">
-                                                        Supprimer
-                                                    </button>
-                                                </form>
+                                                {#                                                <form method="post"#}
+                                                {#                                                      action="{% url 'esiapp:delete_publication' pub.id %}">#}
+                                                {#                                                    {% csrf_token %}#}
+                                                {#                                                    <button type="submit"#}
+                                                {#                                                            class="btn text-white px-4 rounded-0"#}
+                                                {#                                                            style="background-color: red">#}
+                                                {#                                                        Supprimer#}
+                                                {#                                                    </button>#}
+                                                {#                                                </form>#}
                                             </div>
                                         </div>
                                     </div>
@@ -198,11 +198,18 @@
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1" class="form-label"><h4>Commentaires :</h4></label>
                     {% for item in com %}
-                        <div class="row">
-                            <div class="container-sm text-white col-2 mx-2 py-2 d-flex justify-content-center"
-                                 style="background-color: #0360b1">
-                                {{ item.user }}
-                            </div>
+                        <div class="row my-1">
+                            {% if user.email == item.user.email %}
+                                <div class="container-sm text-white col-2 mx-2 py-2 d-flex justify-content-center"
+                                     style="background-color: #0360b1">
+                                    Vous
+                                </div>
+                            {% else %}
+                                <div class="container-sm text-white col-2 mx-2 py-2 d-flex justify-content-center"
+                                     style="background-color: #0360b1">
+                                    {{ item.user }}
+                                </div>
+                            {% endif %}
                             <span class="border border-primary col py-2">
                             <div class="container-sm text-black"
                                  style="border-color: #F91717;background-color: #ffffff;">
@@ -218,14 +225,45 @@
 
                 <hr class="col-4 mx-auto">
                 <div class="d-grid gap-2 col-2 mx-auto">
-                    {#                    <button class="btn text-white rounded-0 fs-6 d-flex justify-content-center"#}
-                    {#                            style="background-color: #0360b1">#}
-                    {#                        Publier le message#}
-                    {#                    </button>#}
                     <!-- Button trigger modal -->
-                    <button type="submit" class="btn text-white rounded-0" style="background-color: #0360b1">
+                    <button type="button" class="btn text-white rounded-0" style="background-color: #0360b1"
+                            data-bs-toggle="modal" data-bs-target="#exampleModal6">
                         Ajouter un commentaire
                     </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal6" tabindex="-1" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">List des emails :</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <textarea class="form-control rounded-0  bg-white"
+                                                      placeholder="Entrer le message..." name="message"
+                                                      style="border-color: #0360b1"
+                                                      id="exampleFormControlTextarea1" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer d-flex justify-content-evenly">
+                                    <button type="button" class="btn px-4 rounded-0"
+                                            data-bs-dismiss="modal"
+                                            style="color: #0360b1; border-color: #0360b1">
+                                        Annuler
+                                    </button>
+                                    <button type="submit" class="btn text-white px-4 rounded-0"
+                                            style="background-color: #3BB628">
+                                        Ajouter
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

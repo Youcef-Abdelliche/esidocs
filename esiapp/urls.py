@@ -13,5 +13,6 @@ urlpatterns = [
     path('delete/<int:item_id>/', views.delete_publication, name="delete_publication"),
     path('publications/edit/<int:item_id>/', views.edit_publication_page, name="edit_publication_page"),
     path('edit/<int:item_id>/', views.edit_publication, name="edit_publication"),
-    path('publications/<int:item_id>/', views.display_publication_page_admin, name="display_publication_page_admin")
+    path('publications/<int:item_id>/', views.display_publication_page_admin, name="display_publication_page_admin"),
+    path('publications/<int:item_id>/commentaire/', views.ajouter_commentaire, name="ajouter_commentaire")
 ]

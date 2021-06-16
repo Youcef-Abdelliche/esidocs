@@ -157,5 +157,21 @@ def display_publication_page_admin(request, item_id):
 
     comm = Commentaire.objects.filter(publication_id=item_id)
 
-    context = {'pub': pub, 'com': comm}
+    if request.user.is_authenticated:
+        user = request.user
+
+    context = {'pub': pub, 'com': comm, 'user': user}
     return render(request, 'admin/display_publication_admin.html', context)
+
+
+def ajouter_commentaire(request, item_id):
+    msg = request.POST['message']
+    if request.user.is_authenticated:
+        user = request.user
+    else:
+        user = None
+    pub = Publication.objects.filter(id=item_id)[0]
+    comm = Commentaire(commentaire_msg=msg, user=user, publication=pub)
+
+    comm.save()
+    return redirect('esiapp:display_publication_page_admin', item_id)
