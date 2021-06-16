@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import redirect
 from django.contrib import messages
-from .models import Publication, User, Category
+from .models import Publication, User, Category, Commentaire
 import datetime
 from django.core.mail import send_mail
 
@@ -149,3 +149,13 @@ def edit_publication(request, item_id):
 def delete_publication(request, item_id):
     Publication.objects.filter(id=item_id).delete()
     return redirect('esiapp:admin_home')
+
+
+def display_publication_page_admin(request, item_id):
+
+    pub = Publication.objects.filter(id=item_id)[0]
+
+    comm = Commentaire.objects.filter(publication_id=item_id)
+
+    context = {'pub': pub, 'com': comm}
+    return render(request, 'admin/display_publication_admin.html', context)

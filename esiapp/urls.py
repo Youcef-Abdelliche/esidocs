@@ -12,5 +12,6 @@ urlpatterns = [
     path('pubs/nouvelle_publication/', views.ajouter_publication, name="ajouter_publication"),
     path('delete/<int:item_id>/', views.delete_publication, name="delete_publication"),
     path('publications/edit/<int:item_id>/', views.edit_publication_page, name="edit_publication_page"),
-    path('edit/<int:item_id>/', views.edit_publication, name="edit_publication")
+    path('edit/<int:item_id>/', views.edit_publication, name="edit_publication"),
+    path('publications/<int:item_id>/', views.display_publication_page_admin, name="display_publication_page_admin")
 ]

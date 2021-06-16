@@ -102,7 +102,7 @@ class Publication(models.Model):
 
 class Commentaire(models.Model):
     commentaire_msg = models.TextField()
-    date_ajout = models.DateField(auto_now=True)
+    date_ajout = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     publication = models.ForeignKey(Publication, on_delete=models.CASCADE)
 
