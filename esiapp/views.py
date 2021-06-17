@@ -22,7 +22,6 @@ def page_introuvable(request):
 
 @login_required
 def homeAdmin(request):
-
     if request.user.is_doctorant or request.user.is_teacher:
         return render(request, 'page_404.html')
 
@@ -49,9 +48,9 @@ def homeAdmin(request):
     }
     return render(request, 'admin/home_page_admin.html', context)
 
+
 @login_required
 def homeUser(request):
-
     if request.user.is_admin:
         return render(request, 'page_404.html')
 
@@ -186,6 +185,9 @@ def display_publication_page_admin(request, item_id):
 
 def ajouter_commentaire(request, item_id):
     msg = request.POST['message']
+    if msg is None:
+        print("NULL")
+        msg = "NULL"
     if request.user.is_authenticated:
         user = request.user
     else:
@@ -214,8 +216,20 @@ def display_publication_page_user(request, item_id):
 def categorie_page(request):
     cat = Category.objects.all()
     user = request.user
-    context = {'cat': cat, 'user': user}
+    pub = Publication.objects.all()
+    cat_dict = []
+    for item in cat:
+        cat_dict.append(len(Publication.objects.filter(Categorie__nom_categorie=item.nom_categorie)))
+    mylist = zip(cat, cat_dict)
+    context = {'cat': mylist, 'user': user}
     return render(request, 'categories_page.html', context)
+
+
+def ajouter_categorie(request):
+    nom = request.POST['categorie_name']
+    cat = Category(nom_categorie=nom, description_categorie=nom)
+    cat.save()
+    return redirect('esiapp:categorie_page')
 
 
 def Logout(request):
