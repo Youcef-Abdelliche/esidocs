@@ -15,96 +15,7 @@
     <title>Détails publication</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-white navbar-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <div>
-                <img src="{% static 'images/esi_logo3.png' %}" width="200" height="40" alt="">
-                <!--<span style="">ESI Docs</span>-->
-            </div>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
-                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarScroll">
-            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Accueil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Domaines</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact Us</a>
-                </li>
-
-            </ul>
-            <form class="d-flex w-50">
-                <input class="form-control border-primary rounded-0" type="search" placeholder="Rechercher">
-                <span class="input-group-append">
-                    <button class="btn btn-outline-secondary bg-white border-primary border-start-0 rounded-0 border ms-n5"
-                            type="button">
-                        <img src="{% static 'icons/search.svg' %}">
-                    </button>
-                </span>
-            </form>
-        </div>
-
-        <span class="input-group-append">
-                    <a class="btn indigo-text"
-                       href="/nouvelle_publication/"
-                       type="button">
-                        <img src="{% static 'icons/add_circle.svg' %}" width="30" height="30">
-                    </a>
-        </span>
-
-        </span>
-        <div class="dropdown">
-            <button class="btn" type="button" id="dropdownMenuButton2"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="{% static 'icons/circle_notifications.svg' %}" width="30" height="30">
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li><a class="dropdown-item" href="#">Separated link</a></li>
-            </ul>
-        </div>
-        <div>
-            <div class="btn-group">
-                <button type="button" class="btn dropdown-toggle text-white" data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                        style="background-color: #0360b1;">
-                    Mon compte
-                </button>
-                <ul class="dropdown-menu" style="right: 0; left: auto;">
-                    <li><a class="dropdown-item" href="#">Gérer les comptes</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="#">Messages reçus</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="#">liste des jurys</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="#">Mon profile</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="#">Deconnexion</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav>
+{% include 'admin/nav_bar.html' %}
 <hr class="dropdown-divider">
 
 <!-- Website body -->
@@ -116,20 +27,20 @@
             <h5>{{ pub.Categorie.nom_categorie }}</h5>
         </div>
         <div class="card-body">
-            <form method="post" action="{% url 'esiapp:ajouter_commentaire' pub.id %}">
-                {% csrf_token %}
-                <div class="mb-3">
-                    <div class="row">
-                        <div class="col">
-                            <h4>{{ pub }}</h4>
-                            <tbody>
-                            <tr>
-                                <td><strong>Publié par : </strong>{{ pub.send_By }}</td>
-                                <td><strong>Date limite : </strong> {{ pub.date_ajout }}</td>
-                                <td><strong>Ajouté par : </strong> {{ user.email }}</td>
-                            </tr>
-                            </tbody>
-                        </div>
+
+            <div class="mb-3">
+                <div class="row">
+                    <div class="col">
+                        <h4>{{ pub }}</h4>
+                        <tbody>
+                        <tr>
+                            <td><strong>Publié par : </strong>{{ pub.send_By }}</td>
+                            <td><strong>Date limite : </strong> {{ pub.date_ajout }}</td>
+                            <td><strong>Ajouté par : </strong> {{ user.email }}</td>
+                        </tr>
+                        </tbody>
+                    </div>
+                    {% if user.is_admin %}
                         <div class="col">
                             <div class="d-grid gap-4 d-md-flex align-items-center justify-content-md-end">
                                 <a href="/publications/edit/{{ pub.id }}" type="button" class="btn text-white px-3"
@@ -154,118 +65,121 @@
                                                         style="color: #0360b1; border-color: #0360b1">
                                                     Annuler
                                                 </button>
-                                                {#                                                <form method="post"#}
-                                                {#                                                      action="{% url 'esiapp:delete_publication' pub.id %}">#}
-                                                {#                                                    {% csrf_token %}#}
-                                                {#                                                    <button type="submit"#}
-                                                {#                                                            class="btn text-white px-4 rounded-0"#}
-                                                {#                                                            style="background-color: red">#}
-                                                {#                                                        Supprimer#}
-                                                {#                                                    </button>#}
-                                                {#                                                </form>#}
+                                                <form method="post"
+                                                      action="{% url 'esiapp:delete_publication' pub.id %}">
+                                                    {% csrf_token %}
+                                                    <button type="submit"
+                                                            class="btn text-white px-4 rounded-0"
+                                                            style="background-color: red">
+                                                        Supprimer
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label"><h4>Message :</h4></label>
+                <p>{{ pub.message }}</p>
+            </div>
+
+            <label for="inputEmail3" class="col-form-label"><h5>Pièces jointes :</h5></label>
+
+            <div class="form-group row">
+                <div class="col">
+                    <label for="fichier">Pas de pièces jointes</label>
+                </div>
+                <div class="col mx-4">
+                    <div class="d-grid gap-4 d-md-flex align-items-center justify-content-md-end">
+                        <a href="#" type="button" class="btn text-white px-4 rounded-0"
+                           style="background-color: #0360b1">
+                            Afficher
+                        </a>
+                        <a type="button" class="btn rounded-0" style="border-color: #0360b1; color: #0360b1">
+                            Telecharger
+                        </a>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label"><h4>Message :</h4></label>
-                    <p>{{ pub.message }}</p>
-                </div>
+            </div>
 
-                <label for="inputEmail3" class="col-form-label"><h5>Pièces jointes :</h5></label>
-
-                <div class="form-group row">
-                    <div class="col">
-                        <label for="fichier">Pas de pièces jointes</label>
-                    </div>
-                    <div class="col mx-4">
-                        <div class="d-grid gap-4 d-md-flex align-items-center justify-content-md-end">
-                            <a href="#" type="button" class="btn text-white px-4 rounded-0"
-                               style="background-color: #0360b1">
-                                Afficher
-                            </a>
-                            <a type="button" class="btn rounded-0" style="border-color: #0360b1; color: #0360b1">
-                                Telecharger
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label"><h4>Commentaires :</h4></label>
-                    {% for item in com %}
-                        <div class="row my-1">
-                            {% if user.email == item.user.email %}
-                                <div class="container-sm text-white col-2 mx-2 py-2 d-flex justify-content-center"
-                                     style="background-color: #0360b1">
-                                    Vous
-                                </div>
-                            {% else %}
-                                <div class="container-sm text-white col-2 mx-2 py-2 d-flex justify-content-center"
-                                     style="background-color: #0360b1">
-                                    {{ item.user }}
-                                </div>
-                            {% endif %}
-                            <span class="border border-primary col py-2">
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label"><h4>Commentaires :</h4></label>
+                {% for item in com %}
+                    <div class="row my-1">
+                        {% if user.email == item.user.email %}
+                            <div class="container-sm text-white col-2 mx-2 py-2 d-flex justify-content-center"
+                                 style="background-color: #0360b1">
+                                Vous
+                            </div>
+                        {% else %}
+                            <div class="container-sm text-white col-2 mx-2 py-2 d-flex justify-content-center"
+                                 style="background-color: #0360b1">
+                                {{ item.user }}
+                            </div>
+                        {% endif %}
+                        <span class="border border-primary col py-2">
                             <div class="container-sm text-black"
                                  style="border-color: #F91717;background-color: #ffffff;">
                                {{ item.commentaire_msg }}
                         </div>
                         </span>
-                            <div class="container-sm bg-white col-2 mx-2 text-black">
-                                {{ item.date_ajout.date }}<br>{{ item.date_ajout.time }}
-                            </div>
+                        <div class="container-sm bg-white col-2 mx-2 text-black">
+                            {{ item.date_ajout.date }}<br>{{ item.date_ajout.time }}
                         </div>
-                    {% endfor %}
-                </div>
+                    </div>
+                {% endfor %}
+            </div>
 
-                <hr class="col-4 mx-auto">
-                <div class="d-grid gap-2 col-2 mx-auto">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn text-white rounded-0" style="background-color: #0360b1"
-                            data-bs-toggle="modal" data-bs-target="#exampleModal6">
-                        Ajouter un commentaire
-                    </button>
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal6" tabindex="-1" aria-labelledby="exampleModalLabel"
-                         aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">List des emails :</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col">
+            <hr class="col-4 mx-auto">
+            <div class="d-grid gap-2 col-2 mx-auto">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn text-white rounded-0" style="background-color: #0360b1"
+                        data-bs-toggle="modal" data-bs-target="#exampleModal6">
+                    Ajouter un commentaire
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal6" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">List des emails :</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col">
                                             <textarea class="form-control rounded-0  bg-white"
                                                       placeholder="Entrer le message..." name="message"
                                                       style="border-color: #0360b1"
                                                       id="exampleFormControlTextarea1" rows="3"></textarea>
-                                        </div>
                                     </div>
                                 </div>
-                                <div class="modal-footer d-flex justify-content-evenly">
-                                    <button type="button" class="btn px-4 rounded-0"
-                                            data-bs-dismiss="modal"
-                                            style="color: #0360b1; border-color: #0360b1">
-                                        Annuler
-                                    </button>
+                            </div>
+                            <div class="modal-footer d-flex justify-content-evenly">
+                                <button type="button" class="btn px-4 rounded-0"
+                                        data-bs-dismiss="modal"
+                                        style="color: #0360b1; border-color: #0360b1">
+                                    Annuler
+                                </button>
+                                <form method="post" action="{% url 'esiapp:ajouter_commentaire' pub.id %}">
+                                    {% csrf_token %}
                                     <button type="submit" class="btn text-white px-4 rounded-0"
                                             style="background-color: #3BB628">
                                         Ajouter
                                     </button>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 

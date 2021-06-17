@@ -5,14 +5,27 @@ from django.contrib import messages
 from .models import Publication, User, Category, Commentaire
 import datetime
 from django.core.mail import send_mail
+from django.contrib.auth.decorators import login_required
+from .decorators import unauthenticated_user, admin_only
 
 
+@unauthenticated_user
 def loginPage(request):
     context = {}
     return render(request, 'login_page.html', context)
 
 
+@unauthenticated_user
+def page_introuvable(request):
+    return render(request, 'page_404.html')
+
+
+@login_required
 def homeAdmin(request):
+
+    if request.user.is_doctorant or request.user.is_teacher:
+        return render(request, 'page_404.html')
+
     publications_offres_bources = Publication.objects.filter(Categorie__nom_categorie="Offres de bources",
                                                              etat_publication=True).order_by('-date_ajout')[:3]
     publications_entreprise = Publication.objects.filter(Categorie__nom_categorie="Entreprise",
@@ -36,8 +49,12 @@ def homeAdmin(request):
     }
     return render(request, 'admin/home_page_admin.html', context)
 
-
+@login_required
 def homeUser(request):
+
+    if request.user.is_admin:
+        return render(request, 'page_404.html')
+
     publications_offres_bources = Publication.objects.filter(Categorie__nom_categorie="Offres de bources",
                                                              etat_publication=True).order_by('-date_ajout')[:3]
     publications_entreprise = Publication.objects.filter(Categorie__nom_categorie="Entreprise",
@@ -124,6 +141,7 @@ def send_email(pub, user, recipient_list):
     )
 
 
+@login_required(login_url='login')
 def edit_publication_page(request, item_id):
     pub = Publication.objects.filter(id=item_id)[0]
     categories = Category.objects.all()
@@ -152,7 +170,6 @@ def delete_publication(request, item_id):
 
 
 def display_publication_page_admin(request, item_id):
-
     pub = Publication.objects.filter(id=item_id)[0]
 
     comm = Commentaire.objects.filter(publication_id=item_id)
@@ -161,6 +178,9 @@ def display_publication_page_admin(request, item_id):
         user = request.user
 
     context = {'pub': pub, 'com': comm, 'user': user}
+    # if user.is_teacher or user.is_doctorant:
+    #     return render(request, 'user/display_publication_user.html', context)
+    # else:
     return render(request, 'admin/display_publication_admin.html', context)
 
 
@@ -175,3 +195,30 @@ def ajouter_commentaire(request, item_id):
 
     comm.save()
     return redirect('esiapp:display_publication_page_admin', item_id)
+
+
+@login_required(login_url='/login')
+def display_publication_page_user(request, item_id):
+    pub = Publication.objects.filter(id=item_id)[0]
+
+    comm = Commentaire.objects.filter(publication_id=item_id)
+
+    if request.user.is_authenticated:
+        user = request.user
+
+    context = {'pub': pub, 'com': comm, 'user': user}
+    return render(request, 'user/display_publication_user.html', context)
+
+
+@login_required
+def categorie_page(request):
+    cat = Category.objects.all()
+    user = request.user
+    context = {'cat': cat, 'user': user}
+    return render(request, 'categories_page.html', context)
+
+
+def Logout(request):
+    logout(request)
+    messages.info(request, 'Deconnexion avec succés')
+    return render(request, 'login_page.html')
