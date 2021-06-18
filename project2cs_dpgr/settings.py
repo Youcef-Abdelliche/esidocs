@@ -151,3 +151,6 @@ EMAIL_HOST_USER = 'esidocs827@gmail.com'
 EMAIL_HOST_PASSWORD = 'ogthzi88999%77'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+LOGIN_URL = '/login'
+LOGOUT_REDIRECT_URL = '/login'

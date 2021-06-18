@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <!-- Bootstraop script-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+            crossorigin="anonymous"></script>
+    <title>publications</title>
+</head>
+<body>
+{% if user.is_admin %}
+    {% include 'admin/nav_bar.html' %}
+{% else %}
+    {% include 'user/nav_bar.html' %}
+{% endif %}
+<hr class="dropdown-divider">
+
+<!-- Website body -->
+<div class="container-fluid"><h3>Liste des domaines</h3></div>
+
+<div class="container-fluid py-3" style="background-color: #EEEEEE">
+    <div class="card">
+        <div class="card-header text-white" style="background-color: #0360b1;">
+            <h5>{{ cat_name }}</h5>
+        </div>
+        <div class="card-body">
+            {% for pub in pubs %}
+                <div class="row">
+                    <div class="col">
+                        <h4>{{ pub }}</h4>
+                        <tbody>
+                        <tr>
+                            <td><strong>Publié par :</strong>{{ pub.send_By }}</td>
+                            <td><strong>Date limite :</strong> {{ pub.date_ajout }}</td>
+                            <td><strong>Ajouté par :</strong> {{ user.email }}</td>
+                        </tr>
+                        </tbody>
+                    </div>
+                    <div class="col">
+                        <div class="d-grid gap-4 d-md-flex align-items-center justify-content-md-end">
+                            <a href="/publications/{{ pub.id }}" type="button" class="btn px-4 text-white"
+                               style="background-color: #0360b1">
+                                Afficher
+                            </a>
+                            {% if user.is_admin %}
+                            <a href="/publications/edit/{{ pub.id }}" type="button" class="btn text-white px-3"
+                               style="background-color: #3BB628">
+                                Modifier
+                            </a>
+                            <button type="button" class="btn text-white" style="background-color: #F91717"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Supprimer
+                            </button>
+                            {% endif %}
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-body d-flex justify-content-center">
+                                            Vous êtes sur que vous voulez supprimé cette publication ?
+                                        </div>
+                                        <div class="modal-footer d-flex justify-content-evenly">
+                                            <button type="button" class="btn px-4 rounded-0"
+                                                    data-bs-dismiss="modal"
+                                                    style="color: #0360b1; border-color: #0360b1">
+                                                Annuler
+                                            </button>
+                                            <form method="post" action="{% url 'esiapp:delete_publication' pub.id %}">
+                                                {% csrf_token %}
+                                                <button type="submit"
+                                                        class="btn text-white px-4 rounded-0"
+                                                        style="background-color: red">
+                                                    Supprimer
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="dropdown-divider">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- footer -->
+<footer class="row mt-3">
+    <small>
+        <div class="fixed-bottom text-center text-white bg-dark col-lg-12">
+            <address>
+                <strong>
+                    Tous droits réservés - mentions légales - ESI 2021
+                </strong>
+            </address>
+        </div>
+    </small>
+</footer>
+</body>
+</html>

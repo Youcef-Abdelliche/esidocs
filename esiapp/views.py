@@ -97,7 +97,7 @@ def admin_login_custom(request):
         print("Utilisateur n'existe pas")
         return redirect('esiapp:login')
 
-
+@login_required
 def new_publication(request):
     categories = Category.objects.all()
     if request.user.is_authenticated:
@@ -167,7 +167,7 @@ def delete_publication(request, item_id):
     Publication.objects.filter(id=item_id).delete()
     return redirect('esiapp:admin_home')
 
-
+@login_required
 def display_publication_page_admin(request, item_id):
     pub = Publication.objects.filter(id=item_id)[0]
 
@@ -199,17 +199,17 @@ def ajouter_commentaire(request, item_id):
     return redirect('esiapp:display_publication_page_admin', item_id)
 
 
-@login_required(login_url='/login')
-def display_publication_page_user(request, item_id):
-    pub = Publication.objects.filter(id=item_id)[0]
-
-    comm = Commentaire.objects.filter(publication_id=item_id)
-
-    if request.user.is_authenticated:
-        user = request.user
-
-    context = {'pub': pub, 'com': comm, 'user': user}
-    return render(request, 'user/display_publication_user.html', context)
+# @login_required(login_url='/login')
+# def display_publication_page_user(request, item_id):
+#     pub = Publication.objects.filter(id=item_id)[0]
+#
+#     comm = Commentaire.objects.filter(publication_id=item_id)
+#
+#     if request.user.is_authenticated:
+#         user = request.user
+#
+#     context = {'pub': pub, 'com': comm, 'user': user}
+#     return render(request, 'user/display_publication_user.html', context)
 
 
 @login_required
@@ -230,6 +230,15 @@ def ajouter_categorie(request):
     cat = Category(nom_categorie=nom, description_categorie=nom)
     cat.save()
     return redirect('esiapp:categorie_page')
+
+
+@login_required
+def publications_page(request, item_id):
+    pubs = Publication.objects.filter(Categorie_id=item_id)
+    cat = Category.objects.filter(id=item_id)[0]
+    user = request.user
+    context = {'pubs': pubs, 'cat_name': cat.nom_categorie, 'user': user}
+    return render(request, 'publications_page.html', context)
 
 
 def Logout(request):

@@ -19,5 +19,6 @@ urlpatterns = [
     # path('publication/<int:item_id>/', views.display_publication_page_user, name="display_publication_page_user"),
     path('page_introuvable/', views.page_introuvable, name="page_introuvable"),
     path('catégories/', views.categorie_page, name="categorie_page"),
-    path('categories/new/', views.ajouter_categorie, name="ajouter_categorie")
+    path('categories/new/', views.ajouter_categorie, name="ajouter_categorie"),
+    path('<int:item_id>/publications/', views.publications_page, name="publications_page")
 ]

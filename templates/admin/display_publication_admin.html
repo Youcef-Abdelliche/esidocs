@@ -41,13 +41,15 @@
                             </tbody>
                         </div>
                         {% if user.is_admin %}
-                            <div class="col">
+                            <div class="col mx-4">
                                 <div class="d-grid gap-4 d-md-flex align-items-center justify-content-md-end">
-                                    <a href="/publications/edit/{{ pub.id }}" type="button" class="btn text-white px-3"
+                                    <a href="/publications/edit/{{ pub.id }}" type="button"
+                                       class="btn rounded-0 text-white px-3"
                                        style="background-color: #3BB628">
                                         Modifier
                                     </a>
-                                    <button type="button" class="btn text-white" style="background-color: #F91717"
+                                    <button type="button" class="btn text-white rounded-0"
+                                            style="background-color: #F91717"
                                             data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         Supprimer
                                     </button>

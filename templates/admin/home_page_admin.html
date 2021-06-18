@@ -41,7 +41,8 @@
                     </div>
                     <div class="col">
                         <div class="d-grid gap-4 d-md-flex align-items-center justify-content-md-end">
-                            <a href="/publications/{{ pub.id }}" type="button" class="btn px-4 text-white" style="background-color: #0360b1">
+                            <a href="/publications/{{ pub.id }}" type="button" class="btn px-4 text-white"
+                               style="background-color: #0360b1">
                                 Afficher
                             </a>
                             <a href="/publications/edit/{{ pub.id }}" type="button" class="btn text-white px-3"
@@ -83,7 +84,13 @@
                 </div>
             {% endfor %}
             <div class="d-grid gap-2">
-                <button class="btn" type="button" style="color: #0360b1"><h5>Afficher tout les messages</h5></button>
+                <a
+                        {% if pub_offres_brouces %}
+                            href="{% url 'esiapp:publications_page' pub_offres_brouces.0.Categorie.id %}"
+                        {% else %}
+                            href="#"
+                        {% endif %}
+                            class="btn" type="button" style="color: #0360b1"><h5>Afficher tout les messages</h5></a>
             </div>
         </div>
     </div>
@@ -154,8 +161,14 @@
                             </div>
                         {% endfor %}
                         <div class="d-grid gap-2">
-                            <button class="btn" type="button" style="color: #0360b1"><h5>Afficher tout les messages</h5>
-                            </button>
+                            <a
+                                    {% if pub_entreprise %}
+                                        href="{% url 'esiapp:publications_page' pub_entreprise.0.Categorie.id %}"
+                                    {% else %}
+                                        href="#"
+                                    {% endif %}
+                                        class="btn" type="button" style="color: #0360b1"><h5>Afficher tout les
+                                messages</h5></a>
                         </div>
                     </div>
                 </div>
@@ -226,8 +239,14 @@
                             </div>
                         {% endfor %}
                         <div class="d-grid gap-2">
-                            <button class="btn" type="button" style="color: #0360b1"><h5>Afficher tout les messages</h5>
-                            </button>
+                            <a
+                                    {% if pub_projet_rech %}
+                                        href="{% url 'esiapp:publications_page' pub_projet_rech.0.Categorie.id %}"
+                                    {% else %}
+                                        href="#"
+                                    {% endif %}
+                                        class="btn" type="button" style="color: #0360b1"><h5>Afficher tout les
+                                messages</h5></a>
                         </div>
                     </div>
                 </div>
@@ -302,8 +321,14 @@
                             </div>
                         {% endfor %}
                         <div class="d-grid gap-2">
-                            <button class="btn" type="button" style="color: #0360b1"><h5>Afficher tout les messages</h5>
-                            </button>
+                            <a
+                                    {% if pub_prfu %}
+                                        href="{% url 'esiapp:publications_page' pub_prfu.0.Categorie.id %}"
+                                    {% else %}
+                                        href="#"
+                                    {% endif %}
+                                        class="btn" type="button" style="color: #0360b1"><h5>Afficher tout les
+                                messages</h5></a>
                         </div>
                     </div>
                 </div>
@@ -374,8 +399,14 @@
                             </div>
                         {% endfor %}
                         <div class="d-grid gap-2">
-                            <button class="btn" type="button" style="color: #0360b1"><h5>Afficher tout les messages</h5>
-                            </button>
+                            <a
+                                    {% if pub_autres %}
+                                        href="{% url 'esiapp:publications_page' pub_autres.0.Categorie.id %}"
+                                    {% else %}
+                                        href="#"
+                                    {% endif %}
+                                        class="btn" type="button" style="color: #0360b1"><h5>Afficher tout les
+                                messages</h5></a>
                         </div>
                     </div>
                 </div>

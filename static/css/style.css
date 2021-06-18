@@ -1,24 +1,3 @@
 .ms-n5 {
     margin-left: -40px;
 }
-
-#formFile::before {
-  content: "Pick file";
-  position: absolute;
-  z-index: 2;
-  display: block;
-  background-color: #eee;
-  width: 80px;
-}
-
-.banner7 input[type="file"]{
-    display: none;
-
-}
-
-.custom-upload {
-    border: 1px #0360b1;
-    color: #0360b1;
-    padding: 1em;
-;
-}
