@@ -2,6 +2,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext_lazy as _
+from .enum import wilayas, universities
 
 priorite = (
     ('priorite 1', 'priorite 1'),
@@ -117,3 +118,12 @@ class PublicationFicher(models.Model):
 
     def __str__(self):
         return self.nom_fichier
+
+
+class Jury(models.Model):
+    nom = models.CharField(max_length=80)
+    prenom = models.CharField(max_length=80)
+    email = models.CharField(max_length=255)
+    telephone = models.CharField(max_length=255, default="tel")
+    wilaya = models.CharField(choices=wilayas, max_length=60, blank=True)
+    university = models.CharField(choices=universities, max_length=255, blank=True)

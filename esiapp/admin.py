@@ -1,4 +1,4 @@
-from .models import User, Publication, PublicationFicher, Category, Commentaire
+from .models import User, Publication, PublicationFicher, Category, Commentaire, Jury
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.models import Group
@@ -11,6 +11,7 @@ admin.site.register(Publication)
 admin.site.register(PublicationFicher)
 admin.site.register(Category)
 admin.site.register(Commentaire)
+admin.site.register(Jury)
 
 
 class UserCreationForm(forms.ModelForm):

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import redirect
 from django.contrib import messages
-from .models import Publication, User, Category, Commentaire
+from .models import Publication, User, Category, Commentaire, Jury
 import datetime
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
@@ -239,6 +239,22 @@ def publications_page(request, item_id):
     user = request.user
     context = {'pubs': pubs, 'cat_name': cat.nom_categorie, 'user': user}
     return render(request, 'publications_page.html', context)
+
+
+def jurys_page(request):
+
+    jurys = Jury.objects.all()
+
+    context = {'jurys': jurys}
+    return render(request, 'jury_list_page.html', context)
+
+
+def new_jury_page(request):
+    pass
+
+
+def new_jury(request):
+    pass
 
 
 def Logout(request):

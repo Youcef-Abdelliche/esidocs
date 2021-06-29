@@ -25,7 +25,7 @@
 <div class="container-fluid py-3" style="background-color: #EEEEEE">
     <div class="card">
         <div class="card-header text-white" style="background-color: #0360b1;">
-            <h5>Nouvelle publication</h5>
+            <h5>Modifier publication</h5>
         </div>
         <div class="card-body">
             <form method="post" action="{% url 'esiapp:edit_publication' pub.id %}">
@@ -75,7 +75,8 @@
                     </div>
                     <div class="col-1">
                         <button class="btn indigo-text"
-                                type="button">
+                                type="button"
+                                data-bs-toggle="modal" data-bs-target="#exampleModal9">
                             <img src="{% static 'icons/add_square.svg' %}" width="30" height="30">
                         </button>
                     </div>
@@ -97,7 +98,8 @@
                 <div class="row mb-3">
                     <label for="inputEmail3" class="col-sm-1 col-form-label">Date limite :</label>
                     <div class="input-group date col-2">
-                        <input type="date" value="{{ date }}" id="start" class="form-control rounded-0" name="date_limite">
+                        <input type="date" value="{{ date }}" id="start" class="form-control rounded-0"
+                               name="date_limite">
                     </div>
                 </div>
 
@@ -118,6 +120,44 @@
                     <button type="submit" class="btn text-white rounded-0" style="background-color: #0360b1">
                         Confirmer
                     </button>
+                </div>
+            </form>
+            <form method="post" action="{% url 'esiapp:ajouter_categorie'%}">
+                <div class="modal fade" id="exampleModal9" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">List des emails :</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="text" class="form-control rounded-0  bg-white"
+                                               placeholder="Entrer le nom de la catégorie"
+                                               name="categorie_name"
+                                               style="border-color: #0360b1"
+                                               id="exampleFormControlTextarea1" rows="3">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer d-flex justify-content-evenly">
+                                <button type="button" class="btn px-4 rounded-0"
+                                        data-bs-dismiss="modal"
+                                        style="color: #0360b1; border-color: #0360b1">
+                                    Annuler
+                                </button>
+
+                                {% csrf_token %}
+                                <button type="submit" class="btn text-white px-4 rounded-0"
+                                        style="background-color: #3BB628">
+                                    Ajouter
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

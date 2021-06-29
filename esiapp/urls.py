@@ -20,5 +20,6 @@ urlpatterns = [
     path('page_introuvable/', views.page_introuvable, name="page_introuvable"),
     path('catégories/', views.categorie_page, name="categorie_page"),
     path('categories/new/', views.ajouter_categorie, name="ajouter_categorie"),
-    path('<int:item_id>/publications/', views.publications_page, name="publications_page")
+    path('<int:item_id>/publications/', views.publications_page, name="publications_page"),
+    path('jurys/', views.jurys_page, name="jurys_page")
 ]
