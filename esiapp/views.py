@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import redirect
 from django.contrib import messages
-from .models import Publication, User, Category, Commentaire, Jury
+from .models import Publication, User, Category, Commentaire, Jury, PublicationFicher
 import datetime
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
@@ -113,7 +113,7 @@ def ajouter_publication(request):
     categorie = Category.objects.filter(nom_categorie=request.POST['categorie_op'])[0]
     contenu = request.POST['contenu']
     date_limite = datetime.datetime.strptime(request.POST['date_limite'], "%Y-%m-%d").date()
-    # file = request.POST['file']
+    file = request.FILES['file']
     emails = request.POST.getlist('list')[0]
     recipient_list = emails.split(',')
     print(recipient_list)
@@ -121,19 +121,23 @@ def ajouter_publication(request):
     pub = Publication(titre=titre, message=message, send_By=sendBy, Categorie=categorie, etat_publication=True,
                       priorite_contenu=contenu, date_limite=date_limite)
     pub.save()
+    pub_file = PublicationFicher(nom_fichier="file name hhh", path_fichier=file, publication=pub)
+    pub_file.save()
 
+    URL = "http://127.0.0.1:8000/publications/"+str(pub.id)+"/"
     publications = Publication.objects.order_by('-date_ajout')[:3]
     if request.user.is_authenticated:
         user = request.user
     # recipient_list = ['joseph.london116@gmail.com', 'azizrcb2011@gmail.com']
-    send_email(pub, user, recipient_list)
+    send_email(pub, user, recipient_list, url=URL)
     return redirect('esiapp:admin_home')
 
 
-def send_email(pub, user, recipient_list):
+def send_email(pub, user, recipient_list, url):
+    msg = "Lien de la publication : "
     send_mail(
         pub.titre,
-        pub.message,
+        pub.message+"\n"+msg+url,
         from_email='esidocs827@gmail.com',
         auth_password='ogthzi88999%77',
         recipient_list=recipient_list,
@@ -172,12 +176,13 @@ def delete_publication(request, item_id):
 def display_publication_page_admin(request, item_id):
     pub = Publication.objects.filter(id=item_id)[0]
 
+    pub_file = PublicationFicher.objects.filter(publication_id=item_id)
     comm = Commentaire.objects.filter(publication_id=item_id)
 
     if request.user.is_authenticated:
         user = request.user
 
-    context = {'pub': pub, 'com': comm, 'user': user}
+    context = {'pub': pub, 'com': comm, 'user': user, 'file': pub_file}
     # if user.is_teacher or user.is_doctorant:
     #     return render(request, 'user/display_publication_user.html', context)
     # else:

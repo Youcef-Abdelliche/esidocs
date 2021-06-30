@@ -47,7 +47,7 @@
             <h5>Nouvelle publication</h5>
         </div>
         <div class="card-body">
-            <form method="post" action="{% url 'esiapp:ajouter_publication' %}">
+            <form method="post" action="{% url 'esiapp:ajouter_publication' %}" enctype="multipart/form-data">
                 {#            <form>#}
                 {% csrf_token %}
                 <div class="mb-3">
@@ -159,13 +159,13 @@
                                         </div>
                                     </div>
                                     <div class="col">
-                                            <input type="hidden" class="form-control rounded-0 bg-white"
-                                                   placeholder="Entrer l'email"
-                                                   id="list"
-                                                   name="list"
-                                                   style="border-color: #0360b1"
-                                                   aria-describedby="emailHelp">
-                                        </div>
+                                        <input type="hidden" class="form-control rounded-0 bg-white"
+                                               placeholder="Entrer l'email"
+                                               id="list"
+                                               name="list"
+                                               style="border-color: #0360b1"
+                                               aria-describedby="emailHelp">
+                                    </div>
                                     <ul class="list-group list-group-flush" id="thelist">
                                         <!-- your emails elements are here -->
                                     </ul>
@@ -176,7 +176,7 @@
                                             style="color: #0360b1; border-color: #0360b1">
                                         Annuler
                                     </button>
-                                    <button onclick="setEmails();"  type="submit" class="btn text-white px-4 rounded-0"
+                                    <button onclick="setEmails();" type="submit" class="btn text-white px-4 rounded-0"
                                             style="background-color: #3BB628">
                                         Envoyer
                                     </button>

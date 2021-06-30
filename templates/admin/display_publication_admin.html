@@ -94,18 +94,26 @@
 
                 <div class="form-group row">
                     <div class="col">
-                        <label for="fichier">Pas de pièces jointes</label>
+                        {% if file %}
+                            <h5>{{ file.0 }}</h5>
+                        {% else %}
+                            <label for="fichier">Pas de pièces jointes</label>
+                        {% endif %}
                     </div>
                     <div class="col mx-4">
-                        <div class="d-grid gap-4 d-md-flex align-items-center justify-content-md-end">
-                            <a href="#" type="button" class="btn text-white px-4 rounded-0"
-                               style="background-color: #0360b1">
-                                Afficher
-                            </a>
-                            <a type="button" class="btn rounded-0" style="border-color: #0360b1; color: #0360b1">
-                                Telecharger
-                            </a>
-                        </div>
+                        {% if file %}
+                            <div class="d-grid gap-4 d-md-flex align-items-center justify-content-md-end">
+                                <a href="#" type="button" class="btn text-white px-4 rounded-0"
+                                   style="background-color: #0360b1">
+                                    Afficher
+                                </a>
+                                <a type="button" href="/css/{{ file.0.path_fichier }}"
+                                   download="{{ file.0.path_fichier }}"
+                                   class="btn rounded-0" style="border-color: #0360b1; color: #0360b1">
+                                    Telecharger
+                                </a>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
 
