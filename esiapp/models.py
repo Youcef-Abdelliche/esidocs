@@ -51,6 +51,7 @@ class MyUserManager(BaseUserManager):
                                 is_doctorant=is_doctorant
                                 )
         user.is_admin = True
+        user.is_staff = True
         user.save(using=self._db)
         return user
 

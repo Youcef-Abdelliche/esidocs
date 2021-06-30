@@ -124,7 +124,7 @@ def ajouter_publication(request):
     pub_file = PublicationFicher(nom_fichier="file name hhh", path_fichier=file, publication=pub)
     pub_file.save()
 
-    URL = "http://127.0.0.1:8000/publications/"+str(pub.id)+"/"
+    URL = "https://herokuappdpgr.herokuapp.com/publications/"+str(pub.id)+"/"
     publications = Publication.objects.order_by('-date_ajout')[:3]
     if request.user.is_authenticated:
         user = request.user

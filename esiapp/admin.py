@@ -22,7 +22,8 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('Nom', 'prenom', 'email', 'telephone', 'adresse', 'is_admin', 'is_teacher', 'is_doctorant')
+        fields = (
+        'Nom', 'prenom', 'email', 'telephone', 'adresse', 'is_admin', 'is_teacher', 'is_doctorant', 'is_staff')
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -75,7 +76,8 @@ class UserAdmin(BaseUserAdmin):
         (None, {'fields': ('email', 'password')}),
         ('Personal info',
          {'fields': ('Nom', 'prenom', 'telephone', 'adresse',)}),
-        ('Permissions', {'fields': ('is_admin', 'is_teacher', 'is_doctorant',)}),
+        (
+        'Permissions', {'fields': ('is_admin', 'is_teacher', 'is_doctorant', 'is_staff', 'is_active', 'is_superuser')}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
