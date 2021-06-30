@@ -40,8 +40,7 @@ class MyUserManager(BaseUserManager):
         Creates and saves a superuser with the given email, date of
         birth and password.
         """
-        user = self.create_user(email,
-                                password=password,
+        user = self.create_user(password=password,
                                 email=self.normalize_email(email),
                                 adresse=adresse,
                                 telephone=telephone,
@@ -72,7 +71,7 @@ class User(AbstractUser):
     is_doctorant = models.BooleanField('doctorant status', default=False)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['Nom', 'prenom', 'telephone', 'adresse', 'is_admin','is_teacher', 'is_doctorant']
 
     def __str__(self):
         return self.email
