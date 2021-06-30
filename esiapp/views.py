@@ -32,6 +32,7 @@ def homeAdmin(request):
     if request.user.is_doctorant or request.user.is_teacher:
         return render(request, 'page_404.html')
 
+    Publication.objects.all().delete()
     publications_offres_bources = Publication.objects.filter(Categorie__nom_categorie="Offres de bources",
                                                              etat_publication=True).order_by('-date_ajout')[:3]
     publications_entreprise = Publication.objects.filter(Categorie__nom_categorie="Entreprise",
