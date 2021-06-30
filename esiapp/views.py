@@ -8,6 +8,12 @@ from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user, admin_only
 from .enum import wilayas, universities
+# Import mimetypes module
+import mimetypes
+# import os module
+import os
+# Import HttpResponse module
+from django.http.response import HttpResponse
 
 
 @unauthenticated_user
@@ -114,6 +120,8 @@ def ajouter_publication(request):
     contenu = request.POST['contenu']
     date_limite = datetime.datetime.strptime(request.POST['date_limite'], "%Y-%m-%d").date()
     file = request.FILES['file']
+
+
     emails = request.POST.getlist('list')[0]
     recipient_list = emails.split(',')
     print(recipient_list)
@@ -121,7 +129,7 @@ def ajouter_publication(request):
     pub = Publication(titre=titre, message=message, send_By=sendBy, Categorie=categorie, etat_publication=True,
                       priorite_contenu=contenu, date_limite=date_limite)
     pub.save()
-    pub_file = PublicationFicher(nom_fichier="file name hhh", path_fichier=file, publication=pub)
+    pub_file = PublicationFicher(nom_fichier=file, path_fichier=file, publication=pub)
     pub_file.save()
 
     URL = "https://herokuappdpgr.herokuapp.com/publications/"+str(pub.id)+"/"
@@ -273,6 +281,30 @@ def new_jury(request):
     jury.save()
 
     return redirect('esiapp:jurys_page')
+
+
+def download_file(request, item_id):
+    # Define Django project base directory
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    # Define text file name
+    filename = 'test.txt'
+
+    file = PublicationFicher.objects.filter(id=item_id)[0]
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
+    print(MEDIA_ROOT)
+    # Define the full file path
+    filepath = MEDIA_ROOT + "/"+file.path_fichier
+    print(filepath)
+    # Open the file for reading content
+    path = open(filepath, 'r')
+    # Set the mime type
+    mime_type, _ = mimetypes.guess_type(filepath)
+    # Set the return value of the HttpResponse
+    response = HttpResponse(path, content_type=mime_type)
+    # Set the HTTP header for sending to browser
+    response['Content-Disposition'] = "attachment; filename=%s" % filename
+    # Return the response value
+    return response
 
 
 def Logout(request):

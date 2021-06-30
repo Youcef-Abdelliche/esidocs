@@ -23,5 +23,6 @@ urlpatterns = [
     path('<int:item_id>/publications/', views.publications_page, name="publications_page"),
     path('jurys/', views.jurys_page, name="jurys_page"),
     path('jurys/new/', views.new_jury_page, name="new_jury_page"),
-    path('jurys/new/jury', views.new_jury, name="new_jury")
+    path('jurys/new/jury', views.new_jury, name="new_jury"),
+    path('files/download/<int:item_id>', views.download_file, name="download_file"),
 ]
