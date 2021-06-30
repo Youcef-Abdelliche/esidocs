@@ -16,8 +16,10 @@
 <body>
 {% if user.is_admin %}
     {% include 'admin/nav_bar.html' %}
-{% else %}
+{% elif user.is_teacher %}
     {% include 'user/nav_bar.html' %}
+{% elif user.is_doctorant %}
+    {% include 'nav_bar_doct.html' %}
 {% endif %}
 <hr class="dropdown-divider">
 

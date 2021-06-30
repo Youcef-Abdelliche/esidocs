@@ -51,15 +51,15 @@
                     data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="{% static 'icons/circle_notifications.svg' %}" width="30" height="30">
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li><a class="dropdown-item" href="#">Separated link</a></li>
-            </ul>
+{#            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">#}
+{#                <li><a class="dropdown-item" href="#">Action</a></li>#}
+{#                <li><a class="dropdown-item" href="#">Another action</a></li>#}
+{#                <li><a class="dropdown-item" href="#">Something else here</a></li>#}
+{#                <li>#}
+{#                    <hr class="dropdown-divider">#}
+{#                </li>#}
+{#                <li><a class="dropdown-item" href="#">Separated link</a></li>#}
+{#            </ul>#}
         </div>
         <div>
             <div class="btn-group">
@@ -77,7 +77,7 @@
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="#">liste des jurys</a></li>
+                    <li><a class="dropdown-item" href="{% url 'esiapp:jurys_page' %}">liste des jurys</a></li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>

@@ -15,7 +15,13 @@
     <title>Détails publication</title>
 </head>
 <body>
-{% include 'admin/nav_bar.html' %}
+{% if user.is_admin %}
+    {% include 'admin/nav_bar.html' %}
+{% elif user.is_teacher %}
+    {% include 'user/nav_bar.html' %}
+{% elif user.is_doctorant %}
+    {% include 'nav_bar_doct.html' %}
+{% endif %}
 <hr class="dropdown-divider">
 
 <!-- Website body -->

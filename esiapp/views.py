@@ -121,13 +121,12 @@ def ajouter_publication(request):
     date_limite = datetime.datetime.strptime(request.POST['date_limite'], "%Y-%m-%d").date()
     file = request.FILES['file']
 
-
     emails = request.POST.getlist('list')[0]
     recipient_list = emails.split(',')
     print(recipient_list)
 
     pub = Publication(titre=titre, message=message, send_By=sendBy, Categorie=categorie, etat_publication=True,
-                      priorite_contenu=contenu, date_limite=date_limite)
+                      priorite_contenu=contenu, editeur=request.user, date_limite=date_limite)
     pub.save()
     pub_file = PublicationFicher(nom_fichier=file, path_fichier=file, publication=pub)
     pub_file.save()

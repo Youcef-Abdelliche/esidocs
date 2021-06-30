@@ -96,7 +96,7 @@ class Publication(models.Model):
     date_limite = models.DateField()
     etat_publication = models.BooleanField(default=False)
     Categorie = models.ForeignKey(Category, on_delete=models.CASCADE, default=None)
-    #    editeur = models.
+    editeur = models.CharField(max_length=255, default=None, null=True)
     priorite_contenu = models.CharField(choices=priorite, max_length=11, blank=True)
 
     def __str__(self):

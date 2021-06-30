@@ -17,8 +17,10 @@
 <body>
 {% if user.is_admin %}
     {% include 'admin/nav_bar.html' %}
-{% else %}
+{% elif user.is_teacher %}
     {% include 'user/nav_bar.html' %}
+{% elif user.is_doctorant %}
+    {% include 'nav_bar_doct.html' %}
 {% endif %}
 <hr class="dropdown-divider">
 
@@ -42,14 +44,18 @@
                 </span>
                     </form>
                 </div>
+
                 <div class="col d-flex justify-content-end">
-                    <a class="btn bg-white border-primary rounded-0 border ms-2"
-                       style="color: #0360b1; border-color: #0360b1"
-                       href="{% url 'esiapp:new_jury_page' %}"
-                       type="submit">
-                        Ajouter un enseignant
-                    </a>
+                    {% if user.is_admin %}
+                        <a class="btn bg-white border-primary rounded-0 border ms-2"
+                           style="color: #0360b1; border-color: #0360b1"
+                           href="{% url 'esiapp:new_jury_page' %}"
+                           type="submit">
+                            Ajouter un enseignant
+                        </a>
+                    {% endif %}
                 </div>
+
             </div>
             <br>
             <!-- table of teachers -->
