@@ -1,0 +1,1 @@
+web: gunicorn project2cs_dpgr.wsgi --log-file -
