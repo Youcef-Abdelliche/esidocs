@@ -7,6 +7,7 @@ import datetime
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user, admin_only
+from .enum import wilayas, universities
 
 
 @unauthenticated_user
@@ -250,11 +251,23 @@ def jurys_page(request):
 
 
 def new_jury_page(request):
-    pass
+
+    context = {'wilayas': wilayas, 'universities': universities}
+    return render(request, 'admin/new_jury_page.html', context)
 
 
 def new_jury(request):
-    pass
+    nom = request.POST['nom']
+    prenom = request.POST['prenom']
+    email_jury = request.POST['email']
+    telephone = request.POST['telephone']
+    wilaya = request.POST['wilaya']
+    university = request.POST['univ']
+
+    jury = Jury(nom=nom, prenom=prenom, email=email_jury, telephone=telephone, wilaya=wilaya, university=university)
+    jury.save()
+
+    return redirect('esiapp:jurys_page')
 
 
 def Logout(request):

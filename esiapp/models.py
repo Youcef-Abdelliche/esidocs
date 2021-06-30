@@ -127,3 +127,6 @@ class Jury(models.Model):
     telephone = models.CharField(max_length=255, default="tel")
     wilaya = models.CharField(choices=wilayas, max_length=60, blank=True)
     university = models.CharField(choices=universities, max_length=255, blank=True)
+
+    def __str__(self):
+        return self.nom + ' ' + self.prenom

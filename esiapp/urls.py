@@ -21,5 +21,7 @@ urlpatterns = [
     path('catégories/', views.categorie_page, name="categorie_page"),
     path('categories/new/', views.ajouter_categorie, name="ajouter_categorie"),
     path('<int:item_id>/publications/', views.publications_page, name="publications_page"),
-    path('jurys/', views.jurys_page, name="jurys_page")
+    path('jurys/', views.jurys_page, name="jurys_page"),
+    path('jurys/new/', views.new_jury_page, name="new_jury_page"),
+    path('jurys/new/jury', views.new_jury, name="new_jury")
 ]
